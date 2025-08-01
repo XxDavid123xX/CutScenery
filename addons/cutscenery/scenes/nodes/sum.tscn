@@ -1,0 +1,114 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6f701iohqu22"]
+
+[ext_resource type="PackedScene" uid="uid://clwjdjyjgkuks" path="res://addons/cutscenery/scenes/nodes/base/cutscene_node_base.tscn" id="1_52xyb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52xyb"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 1, 1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1vnn"]
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(0, 1, 1, 1)
+border_color = Color(0.325, 0.325, 0.325, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="sum" instance=ExtResource("1_52xyb")]
+custom_minimum_size = Vector2(150, 0)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_52xyb")
+theme_override_styles/titlebar_selected = SubResource("StyleBoxFlat_w1vnn")
+title = "sum"
+slot/0/left_enabled = true
+slot/0/left_type = 3
+slot/0/left_color = Color(0, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 3
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(0, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = true
+slot/2/left_type = 3
+slot/2/left_color = Color(0, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+expression = "a + b"
+properties = Dictionary[StringName, Variant]({
+&"a": 0.0,
+&"b": 0.0
+})
+passers = Dictionary[StringName, int]({
+&"result": 3
+})
+condition = "true"
+slot_to_properties = Dictionary[int, StringName]({
+0: &"a",
+2: &"b"
+})
+slot_to_passers = Dictionary[int, StringName]({
+1: &"result"
+})
+slot_main_return = &"result"
+node_properties_asingment = Array[Dictionary]([{
+"from_node": NodePath("HBox1/SpinBox"),
+"from_property": "value",
+"to_property": "a"
+}, {
+"from_node": NodePath(""),
+"from_property": "",
+"to_property": ""
+}])
+
+[node name="HBox1" type="HBoxContainer" parent="." index="1"]
+layout_mode = 2
+
+[node name="a" type="Label" parent="HBox1" index="0"]
+layout_mode = 2
+text = "a"
+
+[node name="SpinBox" type="SpinBox" parent="HBox1" index="1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="." index="2"]
+layout_mode = 2
+text = "result"
+horizontal_alignment = 2
+
+[node name="HBox2" type="HBoxContainer" parent="." index="3"]
+layout_mode = 2
+
+[node name="b" type="Label" parent="HBox2" index="0"]
+layout_mode = 2
+text = "b"
+
+[node name="SpinBox" type="SpinBox" parent="HBox2" index="1"]
+layout_mode = 2

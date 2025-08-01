@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://clwjdjyjgkuks"]
+
+[ext_resource type="Script" uid="uid://bfenwttfr8pit" path="res://addons/cutscenery/scripts/cutscene_node.gd" id="1_jnb26"]
+
+[node name="CutsceneNodeBase" type="GraphNode"]
+custom_minimum_size = Vector2(150, 150)
+offset_right = 9.0
+offset_bottom = 55.0
+resizable = true
+ignore_invalid_connection_type = true
+script = ExtResource("1_jnb26")
+metadata/_custom_type_script = "uid://bfenwttfr8pit"
+
+[connection signal="delete_request" from="." to="." method="_delete_request"]

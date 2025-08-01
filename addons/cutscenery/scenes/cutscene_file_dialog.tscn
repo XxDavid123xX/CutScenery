@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cgk8gs4s8d6ii"]
+
+[node name="CutsceneFileDialog" type="FileDialog"]
+oversampling_override = 1.0
+title = "Save a Cutscene"
+position = Vector2i(0, 36)
+size = Vector2i(651, 360)
+visible = true
+filters = PackedStringArray("*.tres")
+use_native_dialog = true

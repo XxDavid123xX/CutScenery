@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu3gublout6xm"]
+
+[ext_resource type="Script" uid="uid://bpki35lowt0bu" path="res://addons/cutscenery/scripts/cutscene_tab.gd" id="1_vpaee"]
+[ext_resource type="Script" uid="uid://bmfjnukci7w6c" path="res://addons/cutscenery/scripts/graph_edit.gd" id="2_tupfo"]
+[ext_resource type="PackedScene" uid="uid://wxcgkw0a4rl4" path="res://addons/cutscenery/scenes/nodes/end.tscn" id="3_rhes2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jj87"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i888b"]
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 0, 1)
+border_color = Color(0.325, 0.325, 0.325, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="[unsaved]" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_vpaee")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Save button" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "save cutscene"
+flat = true
+
+[node name="GraphEdit" type="GraphEdit" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+right_disconnects = true
+type_names = {
+0: "Variant",
+1: "bool",
+2: "int",
+3: "float",
+4: "string"
+}
+show_zoom_label = true
+script = ExtResource("2_tupfo")
+
+[node name="end" parent="VBoxContainer/GraphEdit" instance=ExtResource("3_rhes2")]
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 79.0
+mouse_filter = 1
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_0jj87")
+theme_override_styles/titlebar_selected = SubResource("StyleBoxFlat_i888b")
+
+[connection signal="connection_request" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_connection_request"]
+[connection signal="copy_nodes_request" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_copy_nodes_request"]
+[connection signal="disconnection_request" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_disconnection_request"]

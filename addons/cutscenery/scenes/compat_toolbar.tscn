@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7jsc672ilbeu"]
+
+[ext_resource type="Texture2D" uid="uid://bdkjstyyq2eoj" path="res://addons/cutscenery/assets/check_button_not_press.svgtex" id="1_oseo2"]
+[ext_resource type="Texture2D" uid="uid://c0fpuc13x3j5j" path="res://addons/cutscenery/assets/check_button_press.svgtex" id="2_4so2m"]
+
+[node name="Compat toolbar" type="HBoxContainer"]
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 2
+texture_normal = ExtResource("1_oseo2")
+texture_pressed = ExtResource("2_4so2m")

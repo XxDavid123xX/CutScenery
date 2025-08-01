@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://wxcgkw0a4rl4"]
+
+[ext_resource type="PackedScene" uid="uid://clwjdjyjgkuks" path="res://addons/cutscenery/scenes/nodes/base/cutscene_node_base.tscn" id="1_n38f5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n38f5"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojk7r"]
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 0, 1)
+border_color = Color(0.325, 0.325, 0.325, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="end" instance=ExtResource("1_n38f5")]
+custom_minimum_size = Vector2(150, 0)
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_n38f5")
+theme_override_styles/titlebar_selected = SubResource("StyleBoxFlat_ojk7r")
+title = "end"
+slot/0/left_enabled = true
+slot/0/left_type = 1
+slot/0/left_color = Color(0, 0.52156866, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+expression = "Signal().emit()"
+properties = Dictionary[StringName, Variant]({
+&"previous": false
+})
+condition = "previous"
+slot_to_properties = Dictionary[int, StringName]({
+0: &"previous"
+})
+
+[node name="Label" type="Label" parent="." index="1"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "previous"

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Cutscene" load_steps=2 format=3 uid="uid://b888n38p6edwn"]
+
+[ext_resource type="Script" uid="uid://cedqj3nrjfluj" path="res://addons/cutscenery/scripts/cutscene.gd" id="1_ypyeb"]
+
+[resource]
+resource_name = "test2"
+script = ExtResource("1_ypyeb")

@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://cctboggqkcmcc"]
+
+[ext_resource type="Script" uid="uid://5i8fkt2qr1nw" path="res://addons/cutscenery/scripts/add_cutscene_node.gd" id="1_mn75p"]
+[ext_resource type="Script" uid="uid://78o07towgoru" path="res://addons/cutscenery/scripts/cutscene_node_tree.gd" id="2_8bh7r"]
+[ext_resource type="Script" uid="uid://bl4kvh3bylsja" path="res://addons/cutscenery/scripts/cutscene_node_metadata.gd" id="2_qsckl"]
+[ext_resource type="PackedScene" uid="uid://cy75bygx4bei2" path="res://addons/cutscenery/scenes/nodes/start.tscn" id="3_fncw5"]
+[ext_resource type="PackedScene" uid="uid://wxcgkw0a4rl4" path="res://addons/cutscenery/scenes/nodes/end.tscn" id="4_e4bhb"]
+[ext_resource type="PackedScene" uid="uid://c6f701iohqu22" path="res://addons/cutscenery/scenes/nodes/sum.tscn" id="5_fncw5"]
+
+[sub_resource type="Resource" id="Resource_fncw5"]
+script = ExtResource("2_qsckl")
+name = &"end"
+scene = ExtResource("4_e4bhb")
+metadata/_custom_type_script = "uid://bl4kvh3bylsja"
+
+[sub_resource type="Resource" id="Resource_qsckl"]
+script = ExtResource("2_qsckl")
+name = &"start"
+scene = ExtResource("3_fncw5")
+metadata/_custom_type_script = "uid://bl4kvh3bylsja"
+
+[sub_resource type="Resource" id="Resource_e4bhb"]
+script = ExtResource("2_qsckl")
+name = &"sum"
+scene = ExtResource("5_fncw5")
+metadata/_custom_type_script = "uid://bl4kvh3bylsja"
+
+[node name="add cutscene node" type="Window"]
+auto_translate_mode = 2
+oversampling_override = 1.0
+title = "add node"
+position = Vector2i(0, 36)
+size = Vector2i(500, 500)
+keep_title_visible = true
+script = ExtResource("1_mn75p")
+nodes = Dictionary[String, ExtResource("2_qsckl")]({
+"end": SubResource("Resource_fncw5"),
+"start": SubResource("Resource_qsckl"),
+"sum": SubResource("Resource_e4bhb")
+})
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 500.0
+offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select a node"
+horizontal_alignment = 1
+
+[node name="Tree" type="Tree" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+hide_root = true
+scroll_horizontal_enabled = false
+script = ExtResource("2_8bh7r")
+item_structure = Dictionary[String, Array]({
+"Advance": ["function", "signal", "print"],
+"Custom": [],
+"Ensentials": ["start", "end"],
+"Math": ["sum", "substract", "multiply", "divide"],
+"Tools": ["translate", "get node from scene"]
+})
+category_order = Array[int]([2, 4, 3, 0, 1])
+
+[node name="Add" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "add"
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+text = "put on center"
+alignment = 1
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="VBoxContainer/Add" to="." method="_on_add_pressed"]
