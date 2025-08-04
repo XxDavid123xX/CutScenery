@@ -15,6 +15,7 @@ func setup():
 		var item = item_structure.keys()[number]
 		items[item] = create_item(root)
 		items[item].set_text(0, item)
+		items[item].add_button(0, null)
 	for i in category_order: # second for
 		var item = item_structure.keys()[i]
 		for j in item_structure[item]:

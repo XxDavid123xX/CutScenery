@@ -15,9 +15,13 @@ config/tags=PackedStringArray("plugin")
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+CutSceneryCutscenesManager="*res://addons/cutscenery/scripts/cutscenery_cutscenes_manager.gd"
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gd_script_look_out/plugin.cfg")
+enabled=PackedStringArray("res://addons/cutscenery/plugin.cfg")
 
 [rendering]
 
