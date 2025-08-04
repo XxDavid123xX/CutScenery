@@ -1,7 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 test/
-*.uid/
+*.uid
 
 # Imported translations (automatically generated from CSV files)
 *.translation
