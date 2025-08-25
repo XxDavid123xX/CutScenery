@@ -3,6 +3,7 @@
 test/
 *.uid
 *.godot
+*.imported
 
 # Imported translations (automatically generated from CSV files)
 *.translation
