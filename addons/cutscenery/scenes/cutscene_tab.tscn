@@ -81,7 +81,7 @@ script = ExtResource("2_tupfo")
 
 [node name="end" parent="VBoxContainer/GraphEdit" instance=ExtResource("3_rhes2")]
 layout_mode = 0
-offset_right = 150.0
+offset_right = 175.0
 offset_bottom = 79.0
 mouse_filter = 1
 theme_override_styles/titlebar = SubResource("StyleBoxFlat_0jj87")
@@ -89,4 +89,8 @@ theme_override_styles/titlebar_selected = SubResource("StyleBoxFlat_i888b")
 
 [connection signal="connection_request" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_connection_request"]
 [connection signal="copy_nodes_request" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_copy_nodes_request"]
+[connection signal="delete_nodes_request" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_delete_nodes_request"]
 [connection signal="disconnection_request" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_disconnection_request"]
+[connection signal="node_deselected" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_node_deselected"]
+[connection signal="node_selected" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_node_selected"]
+[connection signal="paste_nodes_request" from="VBoxContainer/GraphEdit" to="VBoxContainer/GraphEdit" method="_on_paste_nodes_requested"]

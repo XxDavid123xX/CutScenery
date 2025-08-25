@@ -78,4 +78,5 @@ text = "put on center"
 alignment = 1
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="item_icon_double_clicked" from="VBoxContainer/Tree" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="VBoxContainer/Add" to="." method="_on_add_pressed"]

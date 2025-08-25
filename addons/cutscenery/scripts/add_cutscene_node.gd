@@ -10,7 +10,9 @@ func _on_close_requested():
 
 
 func _on_add_pressed() -> void:
-	var node = nodes[%Tree.items.find_key(%Tree.get_selected())]
+	var node
+	if nodes.has(%Tree.items.find_key(%Tree.get_selected())):
+		node = nodes[%Tree.items.find_key(%Tree.get_selected())]
 	if node:
 		passing_node.emit(node)
 		close_requested.emit()

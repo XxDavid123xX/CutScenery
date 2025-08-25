@@ -28,7 +28,7 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [node name="end" instance=ExtResource("1_n38f5")]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(175, 0)
 theme_override_styles/titlebar = SubResource("StyleBoxFlat_n38f5")
 theme_override_styles/titlebar_selected = SubResource("StyleBoxFlat_ojk7r")
 title = "end"

@@ -39,18 +39,16 @@ func _ready() -> void:
 func _validate_property(property: Dictionary) -> void:
 	if property["name"] == "node_properties_asingment":
 		_node_asingment_size = node_properties_asingment.size()
-		node_properties_asingment[node_properties_asingment.size() - 1] = ({
+		if !_node_asingment_size:
+			return
+		node_properties_asingment[-1] = ({
 			"from_node" : NodePath(),
 			"from_property" : "",
 			"to_property" : ""
 		})
 
 func _delete_request():
-	delete_request.emit()
-	EditorInterface.get_editor_undo_redo().create_action("cutscene node deleted")
-	EditorInterface.get_editor_undo_redo().add_undo_reference(self.duplicate())
 	queue_free()
-	EditorInterface.get_editor_undo_redo().commit_action()
 
 func execute_expression(passed_properties : Dictionary[StringName, Variant] = {}):
 	var executor := Expression.new()

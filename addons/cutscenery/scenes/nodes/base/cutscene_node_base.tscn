@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bfenwttfr8pit" path="res://addons/cutscenery/scripts/cutscene_node.gd" id="1_jnb26"]
 
 [node name="CutsceneNodeBase" type="GraphNode"]
-custom_minimum_size = Vector2(150, 150)
+custom_minimum_size = Vector2(175, 175)
 offset_right = 9.0
 offset_bottom = 55.0
 resizable = true

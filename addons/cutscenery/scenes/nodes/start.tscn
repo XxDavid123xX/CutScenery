@@ -28,7 +28,7 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [node name="start" instance=ExtResource("1_tte71")]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(175, 0)
 theme_override_styles/titlebar = SubResource("StyleBoxFlat_6gf6n")
 theme_override_styles/titlebar_selected = SubResource("StyleBoxFlat_p6h67")
 title = "start"

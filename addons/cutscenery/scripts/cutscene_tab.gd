@@ -13,12 +13,6 @@ func _ready() -> void:
 		showed_name = "[unsaved]"
 	else:
 		showed_name = cutscene_ref.resource_name
-	var add_node_button : Button = Button.new()
-	add_node_button.icon = preload("uid://crwkunr7krjr4")
-	add_node_button.flat = true
-	add_node_button.pressed.connect(_on_add_node_button_pressed)
-	%GraphEdit.get_menu_hbox().add_child(add_node_button)
-	
 	$"VBoxContainer/PanelContainer/HBoxContainer/Save button".pressed.connect(save_cutscene.bind(first_time_saved))
 
 func _process(_delta: float) -> void:
