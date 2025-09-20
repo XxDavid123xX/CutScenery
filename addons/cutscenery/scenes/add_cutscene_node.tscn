@@ -39,18 +39,31 @@ nodes = Dictionary[String, ExtResource("2_qsckl")]({
 "sum": SubResource("Resource_e4bhb")
 })
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 500.0
-offset_bottom = 500.0
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Select a node"
 horizontal_alignment = 1
 
-[node name="Tree" type="Tree" parent="VBoxContainer"]
+[node name="Tree" type="Tree" parent="Control/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -66,17 +79,18 @@ item_structure = Dictionary[String, Array]({
 "Tools": ["translate", "get node from scene"]
 })
 category_order = Array[int]([2, 4, 3, 0, 1])
+category_colors = PackedColorArray(0, 1, 0, 1, 0.4980392, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1)
 
-[node name="Add" type="Button" parent="VBoxContainer"]
+[node name="Add" type="Button" parent="Control/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "add"
 
-[node name="CheckButton" type="CheckButton" parent="VBoxContainer"]
+[node name="CheckButton" type="CheckButton" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "put on center"
 alignment = 1
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="item_icon_double_clicked" from="VBoxContainer/Tree" to="." method="_on_add_pressed"]
-[connection signal="pressed" from="VBoxContainer/Add" to="." method="_on_add_pressed"]
+[connection signal="item_icon_double_clicked" from="Control/PanelContainer/VBoxContainer/Tree" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/Add" to="." method="_on_add_pressed"]

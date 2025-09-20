@@ -4,7 +4,7 @@ class_name CutsceneNode
 
 # TODO: add documentation
 const _CLOSE_SIGN = preload("res://addons/cutscenery/assets/close_sign.svgtex")
-var _node_asingment_size : int
+var _node_asingment_size
 #region exports
 @export_custom(PROPERTY_HINT_EXPRESSION, "") var expression : String
 
@@ -36,10 +36,66 @@ func _ready() -> void:
 	_titlebar.add_child(close_button)
 	close_button.pressed.connect(_delete_request)
 
+func _process(_delta : float):
+	for port in get_input_port_count():
+		update_properties_of_port(port)
+
+func update_properties_of_port(port : int):
+	var port_connection = get_connection_list_from_port(port)
+	if !port_connection:
+		var slot = get_input_port_slot(port)
+		var property = slot_to_properties[slot]
+		if node_properties_asingment == []:
+			return
+		for dict in node_properties_asingment:
+			if dict["to_property"] == property:
+				properties[property] = get_node(dict["from_node"]).get(dict["from_property"])
+				get_node(dict["from_node"]).show()
+				#print(properties[property])
+				break
+	elif port_connection:
+		var slot = get_input_port_slot(port)
+		var property = slot_to_properties[slot]
+		for dict in node_properties_asingment:
+			if dict["to_property"] == property:
+				get_node(dict["from_node"]).hide()
+				break
+
+
+func get_property_of_node(node : StringName, port : int, is_input : bool):
+	var node_access : CutsceneNode = get_parent().get_node(NodePath(node))
+	var slot = get_input_port_slot(port) if is_input else get_output_port_slot(port)
+	var property = node_access.slot_to_property[slot]
+	var result
+	if node_access.properties.has(property):
+		result = node_access.properties.get(property)
+	return result
+
+func get_connection_list_from_port(port):
+	if !get_parent() is GraphEdit:
+		return 
+	var connections = get_parent().get_connection_list_from_node(name)
+	var result = []
+	for connection in connections:
+		var dict = {}
+		if connection["from_node"] == name and connection["from_port"] == port:
+			dict["node"] = connection["to_node"]
+			dict["port"] = connection["to_port"]
+			dict["type"] = "left"
+			result.push_back(dict)
+		elif connection["to_node"] == name and connection["to_port"] == port:
+			dict["node"] = connection["from_node"]
+			dict["port"] = connection["from_port"]
+			dict["type"] = "right"
+			result.push_back(dict)
+	return result
+
 func _validate_property(property: Dictionary) -> void:
 	if property["name"] == "node_properties_asingment":
 		_node_asingment_size = node_properties_asingment.size()
 		if !_node_asingment_size:
+			return
+		if !node_properties_asingment[-1] == {}:
 			return
 		node_properties_asingment[-1] = ({
 			"from_node" : NodePath(),
@@ -50,12 +106,19 @@ func _validate_property(property: Dictionary) -> void:
 func _delete_request():
 	queue_free()
 
+func get_singletons_dictionary() -> Dictionary[String, Object]:
+	var dict
+	for sin_name in Engine.get_singleton_list():
+		dict[sin_name] = Engine.get_singleton(sin_name)
+	return dict
+
 func execute_expression(passed_properties : Dictionary[StringName, Variant] = {}):
 	var executor := Expression.new()
 	#region properties
 	for key in passed_properties.keys():
 		if properties.keys().has(key):
 			properties[key] = passed_properties[key]
+	properties.merge(get_singletons_dictionary())
 	#endregion
 	#region parsing
 	var parsing = executor.parse(expression, properties.keys()) #parses the text

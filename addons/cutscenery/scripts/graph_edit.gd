@@ -2,10 +2,10 @@
 extends GraphEdit
 
 var selected_nodes : Array[CutsceneNode]
-var copied_node : CutsceneNode
+var copied_node : GraphElement
 
 func _ready() -> void:
-	add_valid_connection_type(1, 1)
+	add_valid_connection_type(0, 0)
 	var copy_button = Button.new()
 	copy_button.icon = preload("uid://bxev6igavyqkx")
 	copy_button.pressed.connect(button_actions.bind("copy"))
@@ -14,6 +14,10 @@ func _ready() -> void:
 	paste_button.icon = preload("uid://bw188q2k5bxks")
 	paste_button.pressed.connect(button_actions.bind("paste"))
 	get_menu_hbox().add_child(paste_button)
+	var add_button = Button.new() 
+	add_button.icon = preload("uid://crwkunr7krjr4")
+	add_button.pressed.connect(button_actions.bind("add"))
+	get_menu_hbox().add_child(add_button)
 	
 
 func button_actions(button :String):
@@ -22,13 +26,17 @@ func button_actions(button :String):
 			copy_nodes_request.emit()
 		"paste":
 			paste_nodes_request.emit()
+		"add":
+			get_owner()._on_add_node_button_pressed()
 		"":
 			pass
 
 
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	if !is_node_connected(from_node, from_port, to_node, to_port):
+		prints(from_node, from_port, to_node, to_port)
 		connect_node(from_node, from_port, to_node, to_port)
+
 
 
 func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:

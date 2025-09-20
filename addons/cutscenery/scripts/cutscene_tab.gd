@@ -23,7 +23,8 @@ func _process(_delta: float) -> void:
 func save_cutscene(first_time : bool) -> void:
 	var file_dialog_instance = EditorFileDialog.new()
 	for node in %GraphEdit.get_children():
-		cutscene_ref.add_node(node as CutsceneNode)
+		if node is CutsceneNode or node is GraphFrame:
+			cutscene_ref.add_node(node)
 	if first_time:
 		file_dialog_instance.title = "save a Cutscene"
 		file_dialog_instance.file_mode = EditorFileDialog.FILE_MODE_SAVE_FILE
@@ -45,5 +46,5 @@ func _on_add_node_button_pressed() -> void:
 
 func add_node(packed_node: CutsceneNodeMetadata):
 	var node : CutsceneNode = packed_node.scene.instantiate()
-	%GraphEdit.add_child(node)
+	%GraphEdit.add_child(node, true)
 #endregion
