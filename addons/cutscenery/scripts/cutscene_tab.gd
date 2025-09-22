@@ -46,5 +46,6 @@ func _on_add_node_button_pressed() -> void:
 
 func add_node(packed_node: CutsceneNodeMetadata):
 	var node : CutsceneNode = packed_node.scene.instantiate()
+	node._in_execution = false
 	%GraphEdit.add_child(node, true)
 #endregion

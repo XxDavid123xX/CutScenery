@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cctboggqkcmcc"]
+[gd_scene load_steps=13 format=3 uid="uid://cctboggqkcmcc"]
 
 [ext_resource type="Script" uid="uid://5i8fkt2qr1nw" path="res://addons/cutscenery/scripts/add_cutscene_node.gd" id="1_mn75p"]
 [ext_resource type="Script" uid="uid://78o07towgoru" path="res://addons/cutscenery/scripts/cutscene_node_tree.gd" id="2_8bh7r"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cy75bygx4bei2" path="res://addons/cutscenery/scenes/nodes/start.tscn" id="3_fncw5"]
 [ext_resource type="PackedScene" uid="uid://wxcgkw0a4rl4" path="res://addons/cutscenery/scenes/nodes/end.tscn" id="4_e4bhb"]
 [ext_resource type="PackedScene" uid="uid://c6f701iohqu22" path="res://addons/cutscenery/scenes/nodes/sum.tscn" id="5_fncw5"]
+[ext_resource type="PackedScene" uid="uid://c78qtnslpb05p" path="res://addons/cutscenery/scenes/nodes/get_node_of_scene.tscn" id="6_e4bhb"]
 
 [sub_resource type="Resource" id="Resource_fncw5"]
 script = ExtResource("2_qsckl")
@@ -25,6 +26,15 @@ name = &"sum"
 scene = ExtResource("5_fncw5")
 metadata/_custom_type_script = "uid://bl4kvh3bylsja"
 
+[sub_resource type="Resource" id="Resource_jqfyu"]
+script = ExtResource("2_qsckl")
+name = &"get node of scene"
+scene = ExtResource("6_e4bhb")
+metadata/_custom_type_script = "uid://bl4kvh3bylsja"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wl5a3"]
+bg_color = Color(0.21, 0.24, 0.29, 1)
+
 [node name="add cutscene node" type="Window"]
 auto_translate_mode = 2
 oversampling_override = 1.0
@@ -35,6 +45,7 @@ keep_title_visible = true
 script = ExtResource("1_mn75p")
 nodes = Dictionary[String, ExtResource("2_qsckl")]({
 "end": SubResource("Resource_fncw5"),
+"get node of scene": SubResource("Resource_jqfyu"),
 "start": SubResource("Resource_qsckl"),
 "sum": SubResource("Resource_e4bhb")
 })
@@ -54,6 +65,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wl5a3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
 layout_mode = 2
@@ -76,7 +88,7 @@ item_structure = Dictionary[String, Array]({
 "Custom": [],
 "Ensentials": ["start", "end"],
 "Math": ["sum", "substract", "multiply", "divide"],
-"Tools": ["translate", "get node from scene"]
+"Tools": ["translate", "get node of scene"]
 })
 category_order = Array[int]([2, 4, 3, 0, 1])
 category_colors = PackedColorArray(0, 1, 0, 1, 0.4980392, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1)

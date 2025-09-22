@@ -5,6 +5,8 @@ class_name CutsceneNode
 # TODO: add documentation
 const _CLOSE_SIGN = preload("res://addons/cutscenery/assets/close_sign.svgtex")
 var _node_asingment_size
+var _node_isngment_size_passer
+var _in_execution : bool
 #region exports
 @export_custom(PROPERTY_HINT_EXPRESSION, "") var expression : String
 
@@ -19,12 +21,15 @@ var _node_asingment_size
 @export var slot_to_properties : Dictionary[int, StringName] = {}
 @export var slot_to_passers : Dictionary[int, StringName] = {}
 @export var slot_main_return : StringName = &""
-@export_subgroup("node")
+@export_subgroup("node", "node")
 @export var node_properties_asingment : Array[Dictionary]:
 	set(value):
 		node_properties_asingment = value
-		if !node_properties_asingment.size() == _node_asingment_size:
-			notify_property_list_changed()
+		notify_property_list_changed()
+@export var node_passers_asingment : Array[Dictionary]:
+	set(value):
+		node_passers_asingment = value
+		notify_property_list_changed()
 #endregion
 
 @onready var _titlebar : HBoxContainer = get_titlebar_hbox()
@@ -36,11 +41,12 @@ func _ready() -> void:
 	_titlebar.add_child(close_button)
 	close_button.pressed.connect(_delete_request)
 
-func _process(_delta : float):
-	for port in get_input_port_count():
+func _process(_delta : float) -> void:
+	if _in_execution: return
+	for port in get_input_port_count() - 1:
 		update_properties_of_port(port)
 
-func update_properties_of_port(port : int):
+func update_properties_of_port(port : int) -> void:
 	var port_connection = get_connection_list_from_port(port)
 	if !port_connection:
 		var slot = get_input_port_slot(port)
@@ -53,7 +59,7 @@ func update_properties_of_port(port : int):
 				get_node(dict["from_node"]).show()
 				#print(properties[property])
 				break
-	elif port_connection:
+	else:
 		var slot = get_input_port_slot(port)
 		var property = slot_to_properties[slot]
 		for dict in node_properties_asingment:
@@ -62,18 +68,16 @@ func update_properties_of_port(port : int):
 				break
 
 
-func get_property_of_node(node : StringName, port : int, is_input : bool):
-	var node_access : CutsceneNode = get_parent().get_node(NodePath(node))
-	var slot = get_input_port_slot(port) if is_input else get_output_port_slot(port)
-	var property = node_access.slot_to_property[slot]
-	var result
-	if node_access.properties.has(property):
-		result = node_access.properties.get(property)
+func get_passer_of_node(node : StringName, port : int) -> Variant:
+	var node_access : CutsceneNode = get_parent().get(node)
+	var slot : int = node_access.get_output_port_slot(port)
+	var result = node_access.passers[node_access.slot_to_passers[slot]]
 	return result
 
-func get_connection_list_from_port(port):
+
+func get_connection_list_from_port(port) -> Array[Dictionary]:
 	if !get_parent() is GraphEdit:
-		return 
+		return []
 	var connections = get_parent().get_connection_list_from_node(name)
 	var result = []
 	for connection in connections:
@@ -102,6 +106,17 @@ func _validate_property(property: Dictionary) -> void:
 			"from_property" : "",
 			"to_property" : ""
 		})
+	if property["name"] == 'node_passers_asingment':
+		_node_isngment_size_passer = node_passers_asingment.size()
+		if !_node_asingment_size:
+			return
+		if !node_passers_asingment[-1] == {}:
+			return
+		node_passers_asingment[-1] = {
+			"from_node": NodePath(),
+			"from_property": "",
+			"to_property": ""
+		}
 
 func _delete_request():
 	queue_free()

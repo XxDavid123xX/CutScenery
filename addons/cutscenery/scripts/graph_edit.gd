@@ -34,13 +34,14 @@ func button_actions(button :String):
 
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	if !is_node_connected(from_node, from_port, to_node, to_port):
-		prints(from_node, from_port, to_node, to_port)
+		prints("connect:", from_node, from_port, to_node, to_port)
 		connect_node(from_node, from_port, to_node, to_port)
 
 
 
 func _on_disconnection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	if is_node_connected(from_node, from_port, to_node, to_port):
+		prints("disconnect:", from_node, from_port, to_node, to_port)
 		disconnect_node(from_node, from_port, to_node, to_port)
 
 
